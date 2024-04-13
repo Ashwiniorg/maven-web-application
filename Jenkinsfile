@@ -26,6 +26,10 @@ pipeline {
         stage('maven') {
             steps {
                build('Install')
+                input {
+                  message 'hi approve or decline'
+                  ok 'Allow'
+                }
             }
         }
         stage('docker') {

@@ -7,6 +7,9 @@ pipeline {
         triggers {
         githubPush()
     }
+    libraries {
+  lib('mylibrary')
+}
 
     parameters {
           string defaultValue: '0.0.0', description: 'tag of the image', name: 'tag'

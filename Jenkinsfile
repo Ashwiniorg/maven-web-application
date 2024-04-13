@@ -4,6 +4,13 @@ pipeline {
     tools {
          maven 'maven3.9.6'
         }
+        triggers {
+        githubPush()
+    }
+
+    parameters {
+  string defaultValue: '0.0.0', description: 'tag of the image', name: 'tag'
+}
         
     stages {
         stage('git') {
@@ -12,28 +19,23 @@ pipeline {
             }
         }
         stage('maven') {
-            steps {
+            steps 
                 sh 'mvn clean package'
             }
         }
         stage('docker') {
             steps {
-                sh 'docker build -t abc:latest .'
+                sh '''
+                docker build -t abc:latest .
+                aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 587437149137.dkr.ecr.us-east-1.amazonaws.com
+                docker tag abc:latest 587437149137.dkr.ecr.us-east-1.amazonaws.com/myecr:$BUILD_NUMBER
+                docker push 587437149137.dkr.ecr.us-east-1.amazonaws.com/myecr:$BUILD_NUMBER
+                '''
             }
         }
-        stage('docker login') {
+        stage('kubernetes') {
             steps {
-                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 587437149137.dkr.ecr.us-east-1.amazonaws.com'
-            }
-        }
-        stage('docker rename') {
-            steps {
-                sh 'docker tag abc:latest 587437149137.dkr.ecr.us-east-1.amazonaws.com/myecr:$BUILD_NUMBER'
-            }
-        }
-        stage('docker push') {
-            steps {
-                sh 'docker push 587437149137.dkr.ecr.us-east-1.amazonaws.com/myecr:$BUILD_NUMBER'
+                sh 'kubectl apply -f manifest.yml'
             }
         }
     }

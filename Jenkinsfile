@@ -25,7 +25,7 @@ pipeline {
         }
         stage('maven') {
             steps {
-               build('Package')
+               build('Install')
             }
         }
         stage('docker') {

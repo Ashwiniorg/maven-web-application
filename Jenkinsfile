@@ -19,7 +19,7 @@ pipeline {
             }
         }
         stage('maven') {
-            steps 
+            steps {
                 sh 'mvn clean package'
             }
         }
@@ -34,5 +34,5 @@ pipeline {
             }
         }
     
-        
+    }
     }

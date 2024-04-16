@@ -30,9 +30,7 @@ pipeline {
         }
         stage('Approval') {
             steps {
-              input {
-                  message 'Proceed or Drop?'
-            }
+              input ( 'Proceed or Drop?')
             }
         }
         stage('docker') {

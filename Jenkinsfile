@@ -28,6 +28,13 @@ pipeline {
                build('Install')
             }
         }
+        stage('Approval') {
+            steps {
+              input {
+                  message 'Proceed or Drop?'
+            }
+            }
+        }
         stage('docker') {
             steps {
                 sh """

@@ -13,9 +13,9 @@ pipeline {
 }
 
     parameters {
-          string defaultValue: '0.0.0', description: 'tag of the image', name: 'tag'
-         string description: 'url of registry', name: 'url'
-         string description: 'repo for storing images', name: 'repo'
+          string defaultValue: '0.0.4', description: 'tag of the image', name: 'tag'
+         string defaultValue: '975421488220.dkr.ecr.us-east-1.amazonaws.com', description: 'url of registry', name: 'url'
+         string defaultValue: 'myecr', description: 'repo for storing images', name: 'repo'
         }
         
     stages {
@@ -31,7 +31,17 @@ pipeline {
         }
         stage('Approval') {
             steps {
-              input ( 'should i proceed?')
+               script {
+                    def userInput = input(
+                        id: 'userInput', message: 'should i proceed?',
+                        parameters: [choice(choices: ['Accept', 'Reject'], description: 'Select an option')],
+                        timeout: 2 * 60, // Timeout in seconds
+                        submitterParameter: 'user'
+                    )
+                    if (userInput == 'Reject') {
+                        error('Pipeline aborted by user.')
+                    }
+                }
             }
         }
         stage('docker') {

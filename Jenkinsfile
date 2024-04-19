@@ -31,11 +31,10 @@ pipeline {
         }
         stage('Approval') {
             steps {
-               timeout(5) {
-    input ('proceed or abort?')
-}
+               timeout(1) {
+                    input ('proceed or abort?')
                     }
-            
+                }
             }
         
         stage('docker') {

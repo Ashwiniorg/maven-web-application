@@ -47,6 +47,23 @@ pipeline {
                 """
             }
         }
+        stage('kubernetes') {
+            steps {
+                sh ' echo " deploying to kubernetes-kubectl command" '
+            }
+        }
     
     }
+    post {
+  always {
+    sh ' echo " this will run always" '
+  }
+  success {
+    sh ' echo " this job is successful" '
+  }
+  failure {
+   sh ' echo " this job has failed" '
+  }
+}
+
     }

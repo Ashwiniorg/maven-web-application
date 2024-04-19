@@ -34,7 +34,7 @@ pipeline {
                script {
                     def userInput = input(
                         id: 'userInput', message: 'should i proceed?',
-                        parameters: [choice(choices: ['Proceed', 'Abort], description: 'Select an option')],
+                        parameters: [choice(choices: ['Proceed', 'Abort'], description: 'Select an option')],
                         timeout: 2 * 60, // Timeout in seconds
                         submitterParameter: 'user'
                     )

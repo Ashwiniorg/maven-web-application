@@ -31,15 +31,9 @@ pipeline {
         }
         stage('Approval') {
             steps {
-               script {
-                    def userInput = input(
-                        id: 'userInput', message: 'should i proceed?',
-                        parameters: [choice(choices: ['Proceed', 'Abort'], description: 'Select an option')],
-                        timeout: 2 * 60, // Timeout in seconds
-                        submitterParameter: 'user'
-                    )
-                    if (userInput == 'Abort') {
-                        error('Pipeline aborted by user.')
+               timeout(5) {
+    input ('proceed or abort?')
+}
                     }
                 }
             }

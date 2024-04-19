@@ -35,9 +35,9 @@ pipeline {
     input ('proceed or abort?')
 }
                     }
-                }
+            
             }
-        }
+        
         stage('docker') {
             steps {
                 sh """

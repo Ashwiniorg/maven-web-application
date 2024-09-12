@@ -3,7 +3,7 @@ pipeline {
 
     
     tools {
-         maven 'maven3.9.6'
+         maven 'maven3.9.9'
         }
         triggers {
         githubPush()

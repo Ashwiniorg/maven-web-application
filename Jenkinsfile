@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Approval') {
             steps {
-               timeout(1) {
+               timeout(5) {
                     input ('proceed or abort?')
                     }
                 }

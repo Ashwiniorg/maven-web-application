@@ -14,7 +14,7 @@ pipeline {
 
     parameters {
           string defaultValue: '0.0.4', description: 'tag of the image', name: 'tag'
-         string defaultValue: '339713057935.dkr.ecr.us-east-1.amazonaws.com', description: 'url of registry', name: 'url'
+         string defaultValue: '211125513710.dkr.ecr.us-east-1.amazonaws.com', description: 'url of registry', name: 'url'
          string defaultValue: 'myrepo', description: 'repo for storing images', name: 'repo'
         }
         
